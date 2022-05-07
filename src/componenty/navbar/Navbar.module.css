@@ -1,0 +1,29 @@
+.nav {
+    grid-area: n;
+    background-color: grey;
+}
+
+.item {
+    display: block;
+    margin: 20px;
+    padding: 30px;
+    font-size: 14px;
+    color: white;
+    border: 1px solid #000;
+    height: 50px;
+    width: 120px;
+    background-color: #4e514e;
+    text-align: center;
+    text-decoration: none;
+}
+
+.itemActive {
+    color: gold;
+}
+
+.item:hover {
+    background-color: #0fc19e;
+}
+
+
+
