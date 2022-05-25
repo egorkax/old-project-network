@@ -8,11 +8,13 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {News} from "./componenty/news/News";
 import {Setting} from "./componenty/setting/Setting";
 import {Music} from "./componenty/music/Music";
-import {StateType} from "./redux/state";
+import {StateTypes, updateNewPostText} from "./redux/state";
 
-type AppPropsType = {
-    state: StateType
-}
+
+type AppPropsType = StateTypes
+
+
+
 
 function App(props: AppPropsType) {
 
@@ -25,7 +27,9 @@ function App(props: AppPropsType) {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Switch>
-                        <Route path={'/profile'} render={() => <Profile profilePages={props.state.profilePages}/>}/>
+                        <Route path={'/profile'} render={() => <Profile profilePages={props.state.profilePages}
+                                                                        addPost={props.addPost}
+                                                                        updateNewPostText={props.updateNewPostText}/>}/>
                         <Route path={'/dialogs'} render={() => <Dialogs dialogPages={props.state.dialogPages} />}/>
                         <Route path={'/news'} render={() => <News/>}/>
                         <Route path={'/music'} render={() => <Music/>}/>
