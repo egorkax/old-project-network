@@ -1,44 +1,43 @@
-import React, {useRef} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsDataType, MessagesDataType} from "../../redux/state";
+import {DialogsDataType, MessagesDataType,} from "../../redux/dialog-reduser";
 
 
 type DialogsPropsType = {
-    dialogPages: {
-        dialogsData: DialogsDataType[],
-        messagesData: MessagesDataType[]
-    }
-
+    dialogsData: DialogsDataType[]
+    messageData: MessagesDataType[]
+    newTextMessage: string
+    addMessage: () => void
+    updateNewMessageText: (text: string) => void
 
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogsElement = props.dialogPages.dialogsData.map((dialog) => {
+    let dialogsElement = props.dialogsData.map((dialog) => {
         return (
             <DialogItem dialogItem={dialog}/>
         )
     })
 
-    let messageElement = props.dialogPages.messagesData.map((message) => {
+    let messageElement = props.messageData.map((message) => {
         return (
             <Message message={message.message}/>
         )
     })
 
-    let newMessagelement=useRef<HTMLTextAreaElement>(null);
-
 
     const addMessage = () => {
-        if (newMessagelement.current !== null) {
-            alert(newMessagelement.current.value)
-        }
+        props.addMessage();
     }
+    const onChangeMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let newMessageElement = e.currentTarget.value
 
-
-
+        props.updateNewMessageText(newMessageElement)
+    }
+    const onKeyDownHandler = (e: KeyboardEvent<HTMLTextAreaElement>) => e.key === 'Enter' && addMessage();
 
     return (
         <div className={s.dialogs}>
@@ -48,7 +47,8 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {messageElement}
-                <textarea ref={newMessagelement}></textarea>
+                <textarea placeholder='Enter your message!' value={props.newTextMessage}
+                          onChange={onChangeMessage} onKeyDown={onKeyDownHandler}></textarea>
                 <button onClick={addMessage}>send</button>
             </div>
         </div>
