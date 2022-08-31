@@ -102,7 +102,7 @@ type StoreType = {
 
     dispatch(action) {
 
-        this._state.profilePages = profileReduser(this._state.profilePages, action)
+        // this._state.profilePages = profileReduser(this._state.profilePages, action)
         this._state.dialogPages = dialogReduser(this._state.dialogPages, action)
         this._callSubscriber()
 

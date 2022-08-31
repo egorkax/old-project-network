@@ -1,8 +1,14 @@
 .profilePhoto img {
     width: 900px;
-margin-top: 20px;
+    margin-top: 20px;
     margin-left: 130px;
 }
+
 .myInfoBlock {
     padding: 30px;
+}
+
+.UserPhoto {
+    width: 300px;
+    height: 400px;
 }

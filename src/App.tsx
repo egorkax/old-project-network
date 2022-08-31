@@ -1,38 +1,35 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./componenty/header/Header";
 import {Navbar} from "./componenty/navbar/Navbar";
-import {Profile} from "./componenty/profile/Profile";
-import {Dialogs} from "./componenty/Dialogs/Dialogs";
 import {Route, Switch} from "react-router-dom";
-import {News} from "./componenty/news/News";
-import {Setting} from "./componenty/setting/Setting";
-import {Music} from "./componenty/music/Music";
-import {ActionsType, RootState} from "./redux/redux-store";
+import {News} from "./componenty/readyComponents/news/News";
+import {Setting} from "./componenty/readyComponents/setting/Setting";
+import {Music} from "./componenty/readyComponents/music/Music";
 import {DialogsContainer} from "./componenty/Dialogs/DialogsContainer";
+import {UsersContainer} from "./componenty/Users/UsersContainer";
+import {ProfileContainer} from "./componenty/profile/ProfileContainer";
+import HeaderContainer from "./componenty/header/HeaderContainer";
 
-type AppPropsType = {
-    store: RootState
-    dispatch: (action: ActionsType) => void
-}
+// type AppPropsType = {
+//     store: RootState
+//     dispatch: (action: ActionsType) => void
+// }
 
 
-const App: React.FC<AppPropsType> = (props) => {
-    const state = props.store
+// const App: React.FC<AppPropsType> = (props) => {
+    // const state = props.store
 
+const App=()=>{
 
     return (
-
         <div className='app-wrapper'>
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Switch>
-                    <Route path={'/profile'} render={() => <Profile profilePages={state.profilePages}
-                                                                    dispatch={props.dispatch}/>}/>
-
-                    <Route path={'/dialogs'} render={() => <DialogsContainer dialogPages={state.dialogPages}
-                                                                             dispatch={props.dispatch}/>}/>
+                    <Route path={'/profile/:userID?'} render={() => <ProfileContainer/>}/>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/setting'} render={() => <Setting/>}/>

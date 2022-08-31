@@ -2,31 +2,24 @@ import React, {ChangeEvent, KeyboardEvent, useRef} from 'react';
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {DialogsDataType, MessagesDataType,} from "../../redux/dialog-reduser";
+import {DialogsPropsType} from "./DialogsContainer";
 
 
-type DialogsPropsType = {
-    dialogsData: DialogsDataType[]
-    messageData: MessagesDataType[]
-    newTextMessage: string
-    addMessage: () => void
-    updateNewMessageText: (text: string) => void
-
-}
+// type DialogsPropsType = {
+//     // dialogsData: DialogsDataType[]
+//     // messageData: MessagesDataType[]
+//     // newTextMessage: string
+//     dialogPages:DialogPagesType
+//     addMessage: () => void
+//     updateNewMessageText: (text: string) => void
+//
+// }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogsElement = props.dialogsData.map((dialog) => {
-        return (
-            <DialogItem dialogItem={dialog}/>
-        )
-    })
+    let dialogsElement = props.dialogPages.dialogsData.map((d) => <DialogItem key={d.id} dialogItem={d}/>);
 
-    let messageElement = props.messageData.map((message) => {
-        return (
-            <Message message={message.message}/>
-        )
-    })
+    let messageElement = props.dialogPages.messagesData.map((m) =><Message key={m.id} message={m.message}/>);
 
 
     const addMessage = () => {
@@ -41,13 +34,13 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     return (
         <div className={s.dialogs}>
-            <div className={s.dialogsTtem}>
+            <div className={s.dialogsItem}>
                 {dialogsElement}
 
             </div>
             <div className={s.messages}>
                 {messageElement}
-                <textarea placeholder='Enter your message!' value={props.newTextMessage}
+                <textarea placeholder='Enter your message!' value={props.dialogPages.newMessageText}
                           onChange={onChangeMessage} onKeyDown={onKeyDownHandler}></textarea>
                 <button onClick={addMessage}>send</button>
             </div>

@@ -21,8 +21,7 @@ export type UpdateNewPostMessageActionType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newText: string
 }
-export type ActionDialogsType=AddMessageActionType|UpdateNewPostMessageActionType
-
+export type ActionDialogsType = AddMessageActionType | UpdateNewPostMessageActionType
 
 
 let initialState: DialogPagesType = {
@@ -45,21 +44,22 @@ let initialState: DialogPagesType = {
     ]
 };
 export const dialogReduser = (state: DialogPagesType = initialState, action: ActionsType): DialogPagesType => {
+    switch (action.type) {
+        case "UPDATE-NEW-MESSAGE-TEXT": {
+             return {...state, newMessageText: action.newText}
+        }
+        case "ADD-MESSAGE": {
+            const newMessage: MessagesDataType = {
+                id: new Date().getTime(),
+                message: state.newMessageText,
+            };
+             return {...state,newMessageText:'',messagesData:[...state.messagesData,newMessage]}
 
-    if (action.type === 'ADD-MESSAGE') {
-        const newMessage: MessagesDataType = {
-            id: new Date().getTime(),
-            message: state.newMessageText,
-        };
-        state.messagesData.push(newMessage);
-        state.newMessageText = '';
+        }
 
-    } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-        state.newMessageText = action.newText;
+        default:
+            return state
     }
-
-
-    return state;
 }
 
 export const addMessageAC = (): AddMessageActionType => {

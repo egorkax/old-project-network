@@ -1,20 +1,15 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import {Post} from "./posts/Post";
-import {PostDataType, updateNewTextAC} from "../../../redux/profile-reduser";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type MyPostsPropsType = {
-    addPost: () => void
-    updateNewPostText: (text: string) => void
-    postData: PostDataType[]
-    newPostText: string
-}
+
 
 export const MyPosts = (props: MyPostsPropsType) => {
     let postsElement =
         props.postData.map((p) => {
             return (
-                <Post masages={p.message} likes={p.likes}/>
+                <Post key={p.id} masages={p.message} likes={p.likes}/>
             )
         })
 
